@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:4000/api/"; // Replace with your API base URL
+const API_BASE_URL = "https://project-mngmnt-backend.vercel.app/api/"; // Replace with your API base URL
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
