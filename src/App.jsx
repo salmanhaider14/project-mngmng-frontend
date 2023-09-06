@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
-import NotFound from "./components/NotFound";
+import NotFound from "./pages/NotFound";
 import ProjectDetails from "./pages/ProjectDetails";
 
 function App() {

@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import { useCookies } from "react-cookie";
 import API from "../helper/request";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Tasks from "../components/Tasks";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { AiFillEye } from "react-icons/ai";
