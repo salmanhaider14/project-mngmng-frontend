@@ -33,7 +33,7 @@ const Navbar = () => {
           href="#"
         >
           {/* <img src="/assets/logo.png" width={200} className="ms-10" /> */}
-          Project Organizer
+          My Organizer
         </a>
 
         <button
@@ -57,11 +57,20 @@ const Navbar = () => {
           </svg>
         </button>
         <div className="hidden lg:flex space-x-4  me-auto ms-auto gap-8 text-lg font-semibold text-[#292C6D]">
-          <Link className="font-semibold" to={"/"} href="#">
+          {/* <Link className="font-semibold" to={"/"} href="#">
             Home
-          </Link>
-          <Link className="font-semibold" to={"/dashboard"} href="#">
+          </Link> */}
+          <Link className="font-semibold" to={"/dashboard"}>
             Dashboard
+          </Link>
+          <Link className="font-semibold" to={"/#"}>
+            About
+          </Link>
+          <Link className="font-semibold" to={"/#"}>
+            Privacy Policy
+          </Link>
+          <Link className="font-semibold" to={"/#"}>
+            Contact
           </Link>
         </div>
         <BiLogOut

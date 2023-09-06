@@ -25,7 +25,7 @@ const Login = () => {
       const res = await API.post("users/login", { email, password });
       setToken("token", res.data.token);
       Alert();
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       setError(JSON.stringify(error.response.data.message));
     }

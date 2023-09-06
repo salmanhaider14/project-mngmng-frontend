@@ -14,7 +14,7 @@ const ProjectDescriptionModal = ({ description, onClose }) => {
         <div className="flex justify-end mt-4">
           <button
             onClick={onClose}
-            className="text-white bg-gray-500 rounded-md px-4 py-2 hover:bg-gray-600 focus:outline-none"
+            className="text-white bg-yellow-500 rounded-md px-4 py-2 text-medium uppercase hover:bg-gray-600 focus:outline-none"
           >
             Close
           </button>

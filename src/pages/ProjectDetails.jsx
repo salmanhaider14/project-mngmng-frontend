@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -27,7 +27,7 @@ const ProjectDetails = () => {
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = React.useState(false);
   const [showDescModal, setshowDescModal] = React.useState(false);
-  const [updateTask, setUpdateTask] = useState(null); // To store task data for updating
+  const [updateTask, setUpdateTask] = useState(null);
   const [updateTaskError, setUpdateTaskError] = useState("");
   const [deleteTaskId, setDeleteTaskId] = useState(null);
 
@@ -35,34 +35,32 @@ const ProjectDetails = () => {
     setshowDescModal(true);
   };
 
-  // Function to close the modal
   const closeDescriptionModal = () => {
     setshowDescModal(false);
   };
 
   const confirmDeleteTask = (taskId) => {
-    setDeleteTaskId(taskId); // Set the task ID to be deleted
+    setDeleteTaskId(taskId);
   };
   const cancelDeleteTask = () => {
-    setDeleteTaskId(null); // Reset the task ID for deletion
+    setDeleteTaskId(null);
   };
 
   const handleConfirmDeleteTask = async () => {
     try {
       if (deleteTaskId) {
-        // Send a DELETE request to delete the task
         await API.delete(`tasks/${deleteTaskId}`, cookies.token);
-        // Handle success
+
         TaskDeleteAlert();
-        queryClient.invalidateQueries(["tasks", projectId]); // Refetch tasks
+        queryClient.invalidateQueries(["tasks", projectId]);
       }
-      setDeleteTaskId(null); // Reset the task ID for deletion
+      setDeleteTaskId(null);
     } catch (error) {
       console.log(error.message);
-      setDeleteTaskId(null); // Reset the task ID for deletion
+      setDeleteTaskId(null);
     }
   };
-  // Query to load project details
+
   const {
     isLoading,
     isError,
@@ -74,7 +72,6 @@ const ProjectDetails = () => {
     })
   );
 
-  // Query to load tasks
   const {
     isLoading: tasksLoading,
     isError: tasksError,
@@ -90,7 +87,7 @@ const ProjectDetails = () => {
     title: "",
     description: "",
     dueDate: "",
-    status: "",
+    status: "to-do",
     project: projectId,
   });
 
@@ -117,18 +114,15 @@ const ProjectDetails = () => {
     }
   };
 
-  // Function to handle task update
   const handleUpdateTask = async () => {
     try {
       if (updateTask) {
-        // Send a PUT request to update the task
         const updatedTask = await API.put(
           `tasks/${updateTask._id}`,
           updateTask,
           cookies.token
         );
 
-        // Handle success
         TaskUpdateAlert();
         setShowModal(false);
         queryClient.invalidateQueries(["tasks", projectId]); // Refetch tasks
@@ -140,7 +134,6 @@ const ProjectDetails = () => {
     }
   };
 
-  // Function to calculate the remaining days
   const getRemainingDays = (dueDate) => {
     const currentDate = new Date();
     const dueDateObj = new Date(dueDate);
@@ -149,8 +142,7 @@ const ProjectDetails = () => {
     return remainingDays;
   };
 
-  // Function to calculate the completion percentage
-  const getStats = () => {
+  const getStats = useMemo(() => {
     const completedTasks = tasks?.filter((task) => task.status == "completed");
     const inProgress = tasks?.filter((task) => task.status == "in-progress");
     const toDo = tasks?.filter((task) => task.status == "to-do");
@@ -160,7 +152,7 @@ const ProjectDetails = () => {
       inProgress,
       toDo,
     };
-  };
+  }, [tasks]);
 
   function getStatusIcon(status) {
     switch (status) {
@@ -269,6 +261,16 @@ const ProjectDetails = () => {
         </button>
       </div>
 
+      {tasks?.length == 0 && (
+        <div class="mt-4 flex justify-end flex-col items-center gap-3">
+          <img src="/notfound.png" alt="" width={250} />
+          <p class="text-gray-500 text-4xl font-medium">No task found!</p>
+          {/* <button class="mt-2 bg-[#292C6D]  hover:bg-indigo-700 text-white py-2 px-4 rounded-lg">
+            Add One
+          </button> */}
+        </div>
+      )}
+
       <div className="mt-4 ">
         {tasksLoading ? (
           <Spinner />
@@ -315,7 +317,7 @@ const ProjectDetails = () => {
                     <p className="text-lg text-gray-600">{task.status}</p>
                   </div>
                   <div className="mt-2">
-                    <div className="h-4 bg-gray-300 rounded-full">
+                    <div className="h-2 bg-gray-300 rounded-full">
                       <div
                         className={`h-full ${
                           getRemainingDays(task.dueDate) <= 0
@@ -366,6 +368,7 @@ const ProjectDetails = () => {
           setUpdateTask={setUpdateTask}
           setNewTask={setNewTask}
           submitError={submitError}
+          setSubmitError={setSubmitError}
         />
       ) : null}
     </div>
