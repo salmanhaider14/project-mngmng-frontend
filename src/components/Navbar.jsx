@@ -60,7 +60,7 @@ const Navbar = () => {
           {/* <Link className="font-semibold" to={"/"} href="#">
             Home
           </Link> */}
-          <Link className="font-semibold" to={"/dashboard"}>
+          <Link className="font-semibold" to={"/"}>
             Dashboard
           </Link>
           <Link className="font-semibold" to={"/#"}>

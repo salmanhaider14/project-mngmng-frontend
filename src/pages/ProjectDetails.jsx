@@ -245,7 +245,7 @@ const ProjectDetails = () => {
         <button
           className="bg-white text-black shadow-lg  rounded-full p-4  uppercase font-semibold hover:bg-gray-200"
           onClick={() => {
-            navigate("/dashboard");
+            navigate("/");
           }}
         >
           <BiArrowBack />
