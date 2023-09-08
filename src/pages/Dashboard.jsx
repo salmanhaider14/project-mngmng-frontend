@@ -238,7 +238,7 @@ const Home = () => {
                     <Link to={`/projects/details/${project._id}`}>
                       <AiFillEye
                         size={40}
-                        color="white"
+                        color="blue"
                         className="hover:drop-shadow"
                       />
                     </Link>

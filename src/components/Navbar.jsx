@@ -29,10 +29,10 @@ const Navbar = () => {
     <nav className="p-3 rounded-xl bg-white ">
       <div className="flex justify-between items-center">
         <a
-          className=" text-xl font-semibold text-slate-800 ps-[50px] "
+          className=" text-xl font-semibold text-slate-800 ps-[50px] flex items-center gap-3 "
           href="#"
         >
-          {/* <img src="/assets/logo.png" width={200} className="ms-10" /> */}
+          <img src="/logo.png" width={50} className="ms-10" />
           My Organizer
         </a>
 
